@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+    <!-- Сквозная шапка сайта (будет видна везде) -->
+<header class="site-header">
+    <div class="header-title">Карточки по ударениям в словах</div>
+    <div class="header-subtitle">Орфоэпия • ЕГЭ Русский язык</div>
+    <hr class="header-line">
+    
+    <!-- Навигация -->
+    <nav class="site-nav">
+        <button id="nav-main" class="nav-btn active">Главная</button>
+        <button id="nav-about" class="nav-btn">О тренажёре</button>
+    </nav>
+</header>
+
+<!-- Главный экран (Лобби) -->
+<main id="screen-lobby" class="app-screen">
+    <section class="welcome-block">
+        <h1>Добро пожаловать!</h1>
+        <p>Этот тренажёр поможет легко выучить все слова для задания ЕГЭ №4 (ударения) по русскому языку. Ниже находятся умные флеш-карточки, которые сильно облегчат запоминание.</p>
+    </section>
+
+    <section class="rules-block">
+        <h2>Как это работает?</h2>
+        <ol>
+            <li>На экране появляется слово. Мысленно поставьте в нём ударение и кликните «Проверить» — появится верное произношение.</li>
+            <li>Если ответили верно — нажмите «Правильно». Слово больше не появится в текущей сессии.</li>
+            <li>Если ошиблись или не были уверены — нажмите «Повторить». Слово вернётся в колоду, пока вы его не запомните.</li>
+        </ol>
+        <p class="rules-tip">Совет: для лучшего результата проходите карточки снова через несколько дней.</p>
+    </section>
+
+    <!-- Плитки выбора уровней -->
+    <div class="levels-grid">
+        <button class="level-btn" data-level="1">
+            <span class="level-title">Существительные</span>
+            <span class="level-range">(1-54)</span>
+        </button>
+        <button class="level-btn" data-level="2">
+            <span class="level-title">Глаголы</span>
+            <span class="level-range">(1-88)</span> <!-- ИСПРАВЛЕНО: теперь совпадает со счётчиком -->
+        </button>
+        <button class="level-btn" data-level="3">
+            <span class="level-title">Причастия и деепричастия</span>
+            <span class="level-range">(1-39)</span>
+        </button>
+        <button class="level-btn" data-level="4">
+            <span class="level-title">Прилагательные и наречия</span>
+            <span class="level-range">(1-16)</span>
+        </button>
+    </div>
+</main>
+<!-- Экран "О тренажёре" (изначально будет скрыт) -->
+<section id="screen-about" class="app-screen hidden">
+    <div class="about-card">
+        <h2>О тренажёре</h2>
+        <p>Этот интерактивный тренажёр создан для того, чтобы помочь Вам быстро и без лишней зубрёжки выучить все ударения для Задания №4 ЕГЭ по русскому языку. В его основу легла база официального орфоэпического словника ФИПИ, поэтому здесь нет лишних слов — только то, что реально встретится на экзамене. Приложение работает по методу интервальных повторений: система запоминает Ваши ошибки и предлагает сложные слова чаще, пока Вы не запомните каждое из них. Тренажёр работает полностью автономно и не требует регистрации, чтобы Вы могли эффективно повторить материал в любой удобный момент.</p>
+    </div>
+    
+   
+</section>
+<!-- Игровой экран с карточками (изначально скрыт) -->
+<section id="screen-game" class="app-screen hidden">
+    <!-- Кнопка Назад к уровням -->
+    <div class="game-navigation">
+        <button id="btn-back" class="back-btn">← В начало</button>
+    </div>
+    
+    <!-- Блок счётчика оставшихся слов -->
+    <div class="game-counter">
+        Осталось карточек: <span id="words-left">0</span>
+    </div>
+
+    <!-- Область самой флеш-карточки -->
+    <div id="flashcard" class="flashcard-container">
+        <!-- Сюда JavaScript будет вставлять слово большими буквами (БАНТЫ) -->
+        <div id="card-word" class="card-word-text">СЛОВО</div>
+        
+        <!-- Восклицательный или вопросительный знак для интриги -->
+        <div id="card-status" class="card-status-mark">?</div>
+    </div>
+
+    <!-- Блок управления (кнопки под карточкой) -->
+    <div class="game-controls">
+        <!-- Кнопка для лицевой стороны -->
+        <button id="btn-check" class="control-btn main-btn">Проверить</button>
+        
+        <!-- Кнопки для оборотной стороны (ИСПРАВЛЕНО: поменяли местами и изменили текст) -->
+        <div id="action-buttons" class="action-group hidden">
+            <button id="btn-know" class="control-btn know-btn">Правильно</button>
+            <button id="btn-doubt" class="control-btn doubt-btn">Повторить</button>
+        </div>
+
+                <!-- Финальный экран результатов (изначально скрыт) -->
+        <div id="game-result" class="result-container hidden">
+            <div id="result-message" class="result-text">Вы изучили все карточки этого раздела!</div>
+            <button id="btn-restart" class="control-btn main-btn">В начало</button>
+        </div>
+
+    </div>
+</section>
+
+ <!-- Футер с копирайтом авторов -->
+    <footer class="site-footer">
+        <hr class="footer-line">
+        <p class="copyright">© К. М. Демьянов, А. А. Шиляев, 2026</p>
+    </footer>
+</div>
+    <script src="app.js"></script>
+</body>
+</html>
